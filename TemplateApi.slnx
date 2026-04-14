@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/TemplateApi.Api/TemplateApi.Api.csproj" />
+    <Project Path="src/Backend/TemplateApi.Application/TemplateApi.Application.csproj" />
+    <Project Path="src/Backend/TemplateApi.Domain/TemplateApi.Domain.csproj" />
+    <Project Path="src/Backend/TemplateApi.Infrastructure/TemplateApi.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/TemplateApi.Communication/TemplateApi.Communication.csproj" />
+    <Project Path="src/Shared/TemplateApi.Exceptions/TemplateApi.Exceptions.csproj" />
+  </Folder>
+</Solution>
