@@ -1,9 +1,11 @@
+using FluentValidation.Results;
 using Mapster;
 using TemplateApi.Application.Services.Cryptography;
 using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
 using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
+using TemplateApi.Exceptions;
 using TemplateApi.Exceptions.ExceptionsBase;
 
 namespace TemplateApi.Application.UseCases.User.Register;
@@ -21,7 +23,7 @@ public class RegisterUserUseCase(
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
     {
-        Validate(request);
+        await Validate(request);
         
         var user = request.Adapt<Domain.Entities.User>();
         user.Password = _passwordEncripter.Encrypt(request.Password);
@@ -34,12 +36,15 @@ public class RegisterUserUseCase(
         };
     }
 
-    private void Validate(RequestRegisterUserJson request)
+    private async Task Validate(RequestRegisterUserJson request)
     {
-        var validator = new RegisterUserValidator();
-        var result = validator.Validate(request);
+        var result = new RegisterUserValidator().Validate(request);
 
-        if(!result.IsValid)
+        var emailExists = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
+        if (emailExists)
+            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
+
+        if (!result.IsValid)
         {
             var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
             throw new ErrorOnValidationException(errorMessages);
