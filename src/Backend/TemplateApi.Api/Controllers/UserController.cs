@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
 
@@ -11,8 +12,12 @@ public class UserController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
-    public IActionResult Register(RequestRegisterUserJson request)
+    public async Task<IActionResult> Register(
+        [FromServices] IRegisterUserUseCase useCase,
+        [FromBody] RequestRegisterUserJson request)
     {
-        return Created();
+        var response = await useCase.Execute(request);
+        
+        return Created(string.Empty, response);
     }
 }

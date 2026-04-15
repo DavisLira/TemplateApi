@@ -1,9 +1,22 @@
+using TemplateApi.Api.Filters;
+using TemplateApi.Api.Middleware;
+using TemplateApi.Application;
+using TemplateApi.Application.Services.Mappings;
+using TemplateApi.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
+builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
+
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
+
 var app = builder.Build();
+
+MapConfigurations.Configure();
 
 if (app.Environment.IsDevelopment())
 {
@@ -15,7 +28,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<CultureMiddleware>();
+
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

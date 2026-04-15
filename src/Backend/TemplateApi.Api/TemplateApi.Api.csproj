@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
     <ProjectReference Include="..\TemplateApi.Application\TemplateApi.Application.csproj" />
     <ProjectReference Include="..\..\Shared\TemplateApi.Communication\TemplateApi.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\TemplateApi.Exceptions\TemplateApi.Exceptions.csproj" />
+    <ProjectReference Include="..\TemplateApi.Infrastructure\TemplateApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
