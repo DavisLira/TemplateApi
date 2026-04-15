@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
@@ -9,15 +10,15 @@ namespace TemplateApi.Infrastructure;
 
 public static class DependencyInjectionExtension
 {
-    public static void AddInfrastructure(this IServiceCollection services)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
-        AddDbContext(services);
+        AddDbContext(services, configuration);
     }
 
-    private static void AddDbContext(IServiceCollection services)
+    private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = "Server=localhost;Database=TemplateApi;Uid=root;Pwd=password";
+        var connectionString = configuration.GetConnectionString("Connection");
         var serverVersion = ServerVersion.AutoDetect(connectionString);
 
         services.AddDbContext<TemplateApiDbContext>(dbContextOptions =>
