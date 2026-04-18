@@ -10,4 +10,10 @@
     <Project Path="src/Shared/TemplateApi.Communication/TemplateApi.Communication.csproj" />
     <Project Path="src/Shared/TemplateApi.Exceptions/TemplateApi.Exceptions.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/CommonTestUtilities/CommonTestUtilities.csproj" />
+  </Folder>
+  <Folder Name="/test/Validator.Test/">
+    <Project Path="test/Validator.Test/Validators.Test.csproj" />
+  </Folder>
 </Solution>
