@@ -3,6 +3,8 @@ using TemplateApi.Api.Middleware;
 using TemplateApi.Application;
 using TemplateApi.Application.Services.Mappings;
 using TemplateApi.Infrastructure;
+using TemplateApi.Infrastructure.Extensions;
+using TemplateApi.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,4 +38,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+if(!builder.Configuration.IsTestEnvironment())
+    await MigrateDatabase();
+
 app.Run();
+
+async Task MigrateDatabase()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    await DatabaseMigration.Migrate(scope.ServiceProvider);
+}
