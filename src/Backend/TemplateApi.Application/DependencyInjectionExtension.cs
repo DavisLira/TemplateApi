@@ -8,7 +8,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        AddPasswordEncripter(services);
+        AddPasswordEncrypter(services);
         AddUseCases(services);
     }
 
@@ -17,8 +17,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
     }
 
-    private static void AddPasswordEncripter(IServiceCollection services)
+    private static void AddPasswordEncrypter(IServiceCollection services)
     {
-        services.AddScoped(option => new PasswordEncripter());
+        services.AddScoped(option => new PasswordEncrypter());
     }
 }

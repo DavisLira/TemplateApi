@@ -1,6 +1,7 @@
 namespace TemplateApi.Exceptions.ExceptionsBase;
 
-public class TemplateApiException : SystemException
+public abstract class TemplateApiException(string message) : SystemException(message)
 {
-    
+    public abstract int StatusCode { get; }
+    public abstract IList<string> GetErrors();
 }

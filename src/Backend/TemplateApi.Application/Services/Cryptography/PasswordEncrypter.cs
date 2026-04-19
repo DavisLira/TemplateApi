@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TemplateApi.Application.Services.Cryptography;
 
-public class PasswordEncripter
+public class PasswordEncrypter
 {
     public string Encrypt(string password)
     {

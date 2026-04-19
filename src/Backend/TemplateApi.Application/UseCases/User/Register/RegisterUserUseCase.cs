@@ -13,26 +13,26 @@ namespace TemplateApi.Application.UseCases.User.Register;
 public class RegisterUserUseCase(
     IUserWriteOnlyRepository writeOnlyRepository,
     IUserReadOnlyRepository readOnlyRepository,
-    PasswordEncripter passwordEncripter,
+    PasswordEncrypter passwordEncrypter,
     IUnitOfWork unitOfWork
 ) : IRegisterUserUseCase
 {
     private readonly IUserWriteOnlyRepository _writeOnlyRepository = writeOnlyRepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
-    private readonly PasswordEncripter _passwordEncripter = passwordEncripter;
+    private readonly PasswordEncrypter _passwordEncrypter = passwordEncrypter;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
     {
         await Validate(request);
         
         var user = request.Adapt<Domain.Entities.User>();
-        user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncrypter.Encrypt(request.Password);
 
         await _writeOnlyRepository.Add(user);
         await _unitOfWork.Commit();
         return new ResponseRegisterUserJson
         {
-            Name = request.Name
+            Name = user.Name
         };
     }
 
