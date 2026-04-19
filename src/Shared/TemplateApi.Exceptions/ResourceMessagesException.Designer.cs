@@ -90,9 +90,9 @@ namespace TemplateApi.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to An unexpected error occurred..
         /// </summary>
-        public static string PASSWORD_EMPTY {
+        public static string INVALID_PASSWORD {
             get {
-                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
             }
         }
         
