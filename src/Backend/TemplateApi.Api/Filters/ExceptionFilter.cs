@@ -17,7 +17,7 @@ public class ExceptionFilter : IExceptionFilter
             ThrowUnkwonException(context);
     }
 
-    private void HandleProjectException(ExceptionContext context)
+    private static void HandleProjectException(ExceptionContext context)
     {
         var exception = (TemplateApiException)context.Exception;
         var errorResponse = new ResponseErrorJson(exception.GetErrors());
@@ -25,7 +25,7 @@ public class ExceptionFilter : IExceptionFilter
         context.Result = new ObjectResult(errorResponse);
     }
 
-    private void ThrowUnkwonException(ExceptionContext context)
+    private static void ThrowUnkwonException(ExceptionContext context)
     {
         var errorResponse = new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR);
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;

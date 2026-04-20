@@ -7,12 +7,12 @@ public class CultureMiddleware(RequestDelegate next)
     private readonly RequestDelegate _next = next;
     public async Task Invoke(HttpContext context)
     {
-        var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures);
+        var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
         var requestCulture = context.Request.Headers.AcceptLanguage.FirstOrDefault();
         var cultureInfo = new CultureInfo("en");
 
         if (!string.IsNullOrWhiteSpace(requestCulture) 
-            && supportedLanguages.Any(c => c.Name.Equals(requestCulture)))
+            && supportedLanguages.Exists(c => c.Name.Equals(requestCulture)))
         {
             cultureInfo = new CultureInfo(requestCulture);
         }

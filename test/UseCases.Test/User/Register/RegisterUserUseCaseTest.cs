@@ -52,7 +52,7 @@ public class RegisterUserUseCaseTest
             .ShouldBe(ResourceMessagesException.NAME_EMPTY);
     }
 
-    private RegisterUserUseCase CreateUseCase(string? email = null)
+    private static RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var unitOfWork = UnitOfWorkBuilder.Build();
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
