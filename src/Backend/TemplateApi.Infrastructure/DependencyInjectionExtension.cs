@@ -5,6 +5,7 @@ using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
 using TemplateApi.Infrastructure.DataAccess;
 using TemplateApi.Infrastructure.DataAccess.Repositories;
+using TemplateApi.Infrastructure.Extensions;
 
 namespace TemplateApi.Infrastructure;
 
@@ -13,7 +14,9 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddRepositories(services);
-        AddDbContext(services, configuration);
+
+        if(!configuration.IsTestEnvironment())
+            AddDbContext(services, configuration);
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
