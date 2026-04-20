@@ -1,3 +1,4 @@
+using TemplateApi.Api.Converters;
 using TemplateApi.Api.Filters;
 using TemplateApi.Api.Middleware;
 using TemplateApi.Application;
@@ -8,7 +9,7 @@ using TemplateApi.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
 builder.Services.AddOpenApi();
 
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
