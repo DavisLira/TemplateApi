@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Communication.Requests;

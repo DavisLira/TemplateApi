@@ -13,8 +13,14 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <!--Data-->
-    <data name="NAME_EMPTY" xml:space="preserve">
-        <value>O nome não pode estar vazio.</value>
+    <data name="CODE_INVALID" xml:space="preserve">
+        <value>Código inválido.</value>
+    </data>
+    <data name="CODE_RESET_PASSWORD_REQUIRED" xml:space="preserve">
+        <value>É necessário um código para repor a sua palavra-passe.</value>
+    </data>
+    <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+        <value>E-mail já registrado na plataforma.</value>
     </data>
     <data name="EMAIL_EMPTY" xml:space="preserve">
         <value>O e-mail não pode estar vazio.</value>
@@ -22,16 +28,37 @@
     <data name="EMAIL_INVALID" xml:space="preserve">
         <value>O e-mail é inválido.</value>
     </data>
+    <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+        <value>E-mail e/ou senha inválidos.</value>
+    </data>
+    <data name="EXPIRED_CODE" xml:space="preserve">
+        <value>O código expirou.</value>
+    </data>
+    <data name="EXPIRED_SESSION" xml:space="preserve">
+        <value>Sua sessão expirou. Faça login novamente para continuar.</value>
+    </data>
     <data name="INVALID_PASSWORD" xml:space="preserve">
-        <value>Your password should be a minimum of 8 characters, containing at least one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, ?, @, *, .).</value>
+        <value>Sua senha deve ter pelo menos 8 caracteres, contendo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial (por exemplo, !, ?, @, *, .).</value>
+    </data>
+    <data name="INVALID_SESSION" xml:space="preserve">
+        <value>Não foi possível encontrar uma sessão válida. Faça login para acessar esse recurso.</value>
+    </data>
+    <data name="NAME_EMPTY" xml:space="preserve">
+        <value>O nome não pode estar vazio.</value>
+    </data>
+    <data name="NO_TOKEN" xml:space="preserve">
+        <value>A solicitação não tem token.</value>
+    </data>
+    <data name="PASSWORD_DIFFERENT_CURRENT_PASSWORD" xml:space="preserve">
+        <value>A senha inserida é diferente da senha atual.</value>
+    </data>
+    <data name="PASSWORD_EMPTY" xml:space="preserve">
+        <value>A senha não pode estar vazia.</value>
     </data>
     <data name="UNKNOWN_ERROR" xml:space="preserve">
         <value>Erro desconhecido.</value>
     </data>
-    <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
-        <value>O e-mail já está registrado.</value>
-    </data>
-    <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
-        <value>E-mail e/ou senha inválidos.</value>
+    <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
+        <value>Você não tem permissão para acessar esse recurso.</value>
     </data>
 </root>

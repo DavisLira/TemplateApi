@@ -10,6 +10,7 @@ using TemplateApi.Infrastructure.DataAccess.Repositories;
 using TemplateApi.Infrastructure.Extensions;
 using TemplateApi.Infrastructure.Security.Cryptography;
 using TemplateApi.Infrastructure.Security.Tokens.Access.Generator;
+using TemplateApi.Infrastructure.Security.Tokens.Access.Validator;
 
 namespace TemplateApi.Infrastructure;
 
@@ -52,6 +53,8 @@ public static class DependencyInjectionExtension
     {
         var expirationMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationMinutes");
         var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+        
         services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationMinutes, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(config => new JwtTokenValidator(signingKey!));
     }
 }

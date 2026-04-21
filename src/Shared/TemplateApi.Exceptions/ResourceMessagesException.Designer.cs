@@ -61,52 +61,25 @@ namespace TemplateApi.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
+        ///   Looks up a localized string similar to Invalid code..
         /// </summary>
-        public static string NAME_EMPTY {
+        public static string CODE_INVALID {
             get {
-                return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+                return ResourceManager.GetString("CODE_INVALID", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
+        ///   Looks up a localized string similar to A code to reset your password is required..
         /// </summary>
-        public static string EMAIL_EMPTY {
+        public static string CODE_RESET_PASSWORD_REQUIRED {
             get {
-                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+                return ResourceManager.GetString("CODE_RESET_PASSWORD_REQUIRED", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
-        /// </summary>
-        public static string EMAIL_INVALID {
-            get {
-                return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
-        /// </summary>
-        public static string INVALID_PASSWORD {
-            get {
-                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
-        /// </summary>
-        public static string UNKNOWN_ERROR {
-            get {
-                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
+        ///   Looks up a localized string similar to Email already registered on the platform..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
             get {
@@ -115,11 +88,119 @@ namespace TemplateApi.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred..
+        ///   Looks up a localized string similar to The email cannot be empty..
+        /// </summary>
+        public static string EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email is invalid..
+        /// </summary>
+        public static string EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid e-mail and/or password..
         /// </summary>
         public static string EMAIL_OR_PASSWORD_INVALID {
             get {
                 return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The code is expired..
+        /// </summary>
+        public static string EXPIRED_CODE {
+            get {
+                return ResourceManager.GetString("EXPIRED_CODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your session has expired. Please log in again to continue..
+        /// </summary>
+        public static string EXPIRED_SESSION {
+            get {
+                return ResourceManager.GetString("EXPIRED_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must be longer than 6 characters..
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We couldn&apos;t find a valid session. Please log in to access this feature..
+        /// </summary>
+        public static string INVALID_SESSION {
+            get {
+                return ResourceManager.GetString("INVALID_SESSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name cannot be empty..
+        /// </summary>
+        public static string NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request don&apos;t have token..
+        /// </summary>
+        public static string NO_TOKEN {
+            get {
+                return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password entered is different from the current password..
+        /// </summary>
+        public static string PASSWORD_DIFFERENT_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("PASSWORD_DIFFERENT_CURRENT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password cannot be empty..
+        /// </summary>
+        public static string PASSWORD_EMPTY {
+            get {
+                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error..
+        /// </summary>
+        public static string UNKNOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t access this resource..
+        /// </summary>
+        public static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {
+            get {
+                return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
             }
         }
     }
