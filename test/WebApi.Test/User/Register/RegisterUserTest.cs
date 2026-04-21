@@ -24,6 +24,7 @@ public class RegisterUserTest(
         var body = await result.Content.ReadAsStreamAsync();
         var response = await JsonDocument.ParseAsync(body);
         response.RootElement.GetProperty("name").GetString().ShouldBe(request.Name);
+        response.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldNotBeNullOrEmpty();
     }
 
     [Theory]

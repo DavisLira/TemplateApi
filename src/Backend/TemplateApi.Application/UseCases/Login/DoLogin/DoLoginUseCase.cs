@@ -2,17 +2,20 @@ using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
 using TemplateApi.Domain.Repositories.User;
 using TemplateApi.Domain.Security.Cryptography;
+using TemplateApi.Domain.Security.Tokens;
 using TemplateApi.Exceptions.ExceptionsBase;
 
 namespace TemplateApi.Application.UseCases.Login.DoLogin;
 
 public class DoLoginUseCase(
     IUserReadOnlyRepository repository,
-    IPasswordEncrypter passwordEncrypter
+    IPasswordEncrypter passwordEncrypter,
+    IAccessTokenGenerator accessTokenGenerator
 ) : IDoLoginUseCase
 {
     private readonly IUserReadOnlyRepository _repository = repository;
     private readonly IPasswordEncrypter _passwordEncrypter = passwordEncrypter;
+    private readonly IAccessTokenGenerator _accessTokenGenerator = accessTokenGenerator;
 
     public async Task<ResponseRegisterUserJson> Execute(RequestLoginJson request)
     {
@@ -25,7 +28,11 @@ public class DoLoginUseCase(
         
         return new ResponseRegisterUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = _accessTokenGenerator.Generate(user)
+            }
         };
     }
 }

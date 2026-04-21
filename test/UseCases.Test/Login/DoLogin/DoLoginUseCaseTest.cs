@@ -2,6 +2,7 @@ using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens;
 using Shouldly;
 using TemplateApi.Application.UseCases.Login.DoLogin;
 using TemplateApi.Exceptions;
@@ -26,6 +27,8 @@ public class DoLoginUseCaseTest
 
         result.ShouldNotBeNull();
         result.Name.ShouldBe(user.Name);
+        result.Tokens.ShouldNotBeNull();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
     }
 
     [Fact]
@@ -65,7 +68,8 @@ public class DoLoginUseCaseTest
     {
         var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var repository = new UserReadOnlyRepositoryBuilder().GetByEmail(user).Build();
+        var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
-        return new DoLoginUseCase(repository, passwordEncrypter);
+        return new DoLoginUseCase(repository, passwordEncrypter, accessTokenGenerator);
     }
 }

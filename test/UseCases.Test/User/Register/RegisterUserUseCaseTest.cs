@@ -1,6 +1,7 @@
 using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Tokens;
 using Shouldly;
 using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Exceptions;
@@ -19,6 +20,8 @@ public class RegisterUserUseCaseTest
 
         result.ShouldNotBeNull();
         result.Name.ShouldBe(request.Name);
+        result.Tokens.ShouldNotBeNull();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
     }
 
     [Fact]
@@ -58,10 +61,11 @@ public class RegisterUserUseCaseTest
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
         var passwordEncripter = PasswordEncrypterBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
+        var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
         if (!string.IsNullOrWhiteSpace(email))
             readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), passwordEncripter, unitOfWork);
+        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), passwordEncripter, accessTokenGenerator, unitOfWork);
     }
 }
