@@ -22,21 +22,6 @@ public class RegisterUserUseCaseTest
     }
 
     [Fact]
-    public async Task Error_Email_Already_Exist()
-    {
-        var request = RequestRegisterUserJsonBuilder.Build();
-
-        var useCase = CreateUseCase(request.Email);
-
-        var act = async () => await useCase.Execute(request);
-
-        var result = await act.ShouldThrowAsync<ErrorOnValidationException>();
-        result.GetErrors()
-            .ShouldHaveSingleItem()
-            .ShouldBe(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
-    }
-
-    [Fact]
     public async Task Error_Name_Empty()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -52,11 +37,26 @@ public class RegisterUserUseCaseTest
             .ShouldBe(ResourceMessagesException.NAME_EMPTY);
     }
 
+    [Fact]
+    public async Task Error_Email_Already_Exist()
+    {
+        var request = RequestRegisterUserJsonBuilder.Build();
+
+        var useCase = CreateUseCase(request.Email);
+
+        var act = async () => await useCase.Execute(request);
+
+        var result = await act.ShouldThrowAsync<ErrorOnValidationException>();
+        result.GetErrors()
+            .ShouldHaveSingleItem()
+            .ShouldBe(ResourceMessagesException.EMAIL_ALREADY_REGISTERED);
+    }
+
     private static RegisterUserUseCase CreateUseCase(string? email = null)
     {
         var unitOfWork = UnitOfWorkBuilder.Build();
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
-        var passwordEncripter = PasswordEncrypterBuilder.Build();
+        var passwordEncripter = new PasswordEncrypterBuilder().Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
         if (!string.IsNullOrWhiteSpace(email))

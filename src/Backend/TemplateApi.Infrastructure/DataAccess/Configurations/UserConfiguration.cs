@@ -22,10 +22,18 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(2000);
 
+        builder.Property(u => u.UserIdentifier)
+            .IsRequired();
+
+        builder.Property(u => u.Role)
+            .IsRequired()
+            .HasMaxLength(20);
+
         builder.Property(u => u.Active)
             .IsRequired();
 
         builder.Property(u => u.CreatedAt)
-            .IsRequired();
+            .IsRequired()
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
     }
 }

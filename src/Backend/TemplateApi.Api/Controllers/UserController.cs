@@ -17,7 +17,6 @@ public class UserController : TemplateApiBaseController
         [FromBody] RequestRegisterUserJson request)
     {
         var response = await useCase.Execute(request);
-        
         return Created(string.Empty, response);
     }
 }

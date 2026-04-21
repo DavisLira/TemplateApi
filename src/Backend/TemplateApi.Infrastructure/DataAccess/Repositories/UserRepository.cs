@@ -4,13 +4,14 @@ using TemplateApi.Domain.Repositories.User;
 
 namespace TemplateApi.Infrastructure.DataAccess.Repositories;
 
-public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
+public class UserRepository(
+    TemplateApiDbContext dbContext
+) : IUserReadOnlyRepository, IUserWriteOnlyRepository
 {
-    private readonly TemplateApiDbContext _dbContext;
-
-    public UserRepository(TemplateApiDbContext dbContext) => _dbContext = dbContext;
+    private readonly TemplateApiDbContext _dbContext = dbContext;
 
     public async Task Add(User user) => await _dbContext.Users.AddAsync(user);
+
     public async Task<bool> ExistActiveUserWithEmail(string email) {
         return await _dbContext.Users.AnyAsync(
             user => user.Email.Equals(email)

@@ -27,6 +27,7 @@ public class RegisterUserUseCase(
         
         var user = request.Adapt<Domain.Entities.User>();
         user.Password = _passwordEncrypter.Encrypt(request.Password);
+        user.UserIdentifier = Guid.NewGuid();
 
         await _writeOnlyRepository.Add(user);
         await _unitOfWork.Commit();
