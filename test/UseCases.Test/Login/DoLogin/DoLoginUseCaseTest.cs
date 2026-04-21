@@ -20,7 +20,7 @@ public class DoLoginUseCaseTest
         request.Email = user.Email;
         request.Password = password;
 
-        var useCase = CreateUseCase(user, password);
+        var useCase = CreateUseCase(user);
 
         var result = await useCase.Execute(request);
 
@@ -61,9 +61,9 @@ public class DoLoginUseCaseTest
             .ShouldBe(ResourceMessagesException.EMAIL_OR_PASSWORD_INVALID);
     }
 
-    private static DoLoginUseCase CreateUseCase(TemplateApi.Domain.Entities.User user, string? password = null)
+    private static DoLoginUseCase CreateUseCase(TemplateApi.Domain.Entities.User user)
     {
-        var passwordEncrypter = new PasswordEncrypterBuilder().Verify(password).Build();
+        var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var repository = new UserReadOnlyRepositoryBuilder().GetByEmail(user).Build();
 
         return new DoLoginUseCase(repository, passwordEncrypter);

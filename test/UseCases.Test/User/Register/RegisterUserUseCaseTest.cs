@@ -56,7 +56,7 @@ public class RegisterUserUseCaseTest
     {
         var unitOfWork = UnitOfWorkBuilder.Build();
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
-        var passwordEncripter = new PasswordEncrypterBuilder().Build();
+        var passwordEncripter = PasswordEncrypterBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
 
         if (!string.IsNullOrWhiteSpace(email))

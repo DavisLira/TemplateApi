@@ -2,7 +2,6 @@ using Bogus;
 using CommonTestUtilities.Cryptography;
 using TemplateApi.Domain.Entities;
 using TemplateApi.Domain.Enums;
-using TemplateApi.Infrastructure.Security.Cryptography;
 
 namespace CommonTestUtilities.Entities;
 
@@ -10,7 +9,7 @@ public class UserBuilder
 {
     public static (User user, string password) Build(string role = Roles.MEMBER)
     {
-        var passwordEncrypter = new BCryptNet();
+        var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var password = new Faker().Internet.Password(prefix: "!Aa1");
 
         var user = new Faker<User>()
