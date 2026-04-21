@@ -14,12 +14,13 @@ public class DoLoginUseCaseTest
     [Fact]
     public async Task Success()
     {
-        var user = UserBuilder.Build();
+        (var user, var password) = UserBuilder.Build();
 
         var request = RequestLoginJsonBuilder.Build();
         request.Email = user.Email;
+        request.Password = password;
 
-        var useCase = CreateUseCase(user, request.Password);
+        var useCase = CreateUseCase(user, password);
 
         var result = await useCase.Execute(request);
 
@@ -30,9 +31,10 @@ public class DoLoginUseCaseTest
     [Fact]
     public async Task Error_User_Not_Found()
     {
-        var user = UserBuilder.Build();
+        (var user, var password) = UserBuilder.Build();
         var request = RequestLoginJsonBuilder.Build();
-        var useCase = CreateUseCase(user, request.Password);
+        user.Email = request.Email;
+        var useCase = CreateUseCase(user);
 
         var act = async() => await useCase.Execute(request);
         var result = await act.ShouldThrowAsync<InvalidLoginException>();
@@ -45,7 +47,7 @@ public class DoLoginUseCaseTest
     [Fact]
     public async Task Error_Password_Not_Match()
     {
-        var user = UserBuilder.Build();
+        (var user, var password) = UserBuilder.Build();
         var request = RequestLoginJsonBuilder.Build();
         request.Email = user.Email;
 

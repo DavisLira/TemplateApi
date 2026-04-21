@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebApi.Test.Resources;
 using TemplateApi.Domain.Security.Cryptography;
-using UserEntitie = TemplateApi.Domain.Entities.User;
+using UserEntity = TemplateApi.Domain.Entities.User;
 using CommonTestUtilities.Entities;
 using TemplateApi.Domain.Enums;
 
@@ -33,44 +33,37 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 var passwordEncrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncrypter>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<TemplateApiDbContext>();
 
-                StartDatabase(dbContext, passwordEncrypter);
+                StartDatabase(dbContext);
             });
     }
 
     private void StartDatabase(
-        TemplateApiDbContext dbContext,
-        IPasswordEncrypter passwordEncrypter)
+        TemplateApiDbContext dbContext)
     {
-        var userMember = AddUserMember(dbContext, passwordEncrypter);
-        var userAdmin = AddUserAdmin(dbContext, passwordEncrypter);
+        var userMember = AddUserMember(dbContext);
+        var userAdmin = AddUserAdmin(dbContext);
         dbContext.SaveChanges();
     }
 
-    private UserEntitie AddUserMember(
-        TemplateApiDbContext dbContext, 
-        IPasswordEncrypter passwordEncrypter)
+    private UserEntity AddUserMember(
+        TemplateApiDbContext dbContext)
     {
-        var user = UserBuilder.Build();
+        (var user, var password) = UserBuilder.Build();
         user.UserId = 1;
-        var password = user.Password;
-        user.Password = passwordEncrypter.Encrypt(user.Password);
         dbContext.Users.Add(user);
 
         User_Member = new UserIdentityManager(user, password);
         return user;
     }
 
-    private UserEntitie AddUserAdmin(
-        TemplateApiDbContext dbContext, 
-        IPasswordEncrypter passwordEncrypter)
+    private UserEntity AddUserAdmin(
+        TemplateApiDbContext dbContext)
     {
-        var user = UserBuilder.Build(Roles.ADMIN);
+        (var user, var password) = UserBuilder.Build(Roles.ADMIN);
         user.UserId = 2;
-        var password = user.Password;
-        user.Password = passwordEncrypter.Encrypt(user.Password);
         dbContext.Users.Add(user);
 
-        User_Member = new UserIdentityManager(user, password);
+        User_Admin = new UserIdentityManager(user, password);
         return user;
     }
 }

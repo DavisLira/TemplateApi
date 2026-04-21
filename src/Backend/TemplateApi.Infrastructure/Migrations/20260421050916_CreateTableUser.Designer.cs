@@ -12,7 +12,7 @@ using TemplateApi.Infrastructure.DataAccess;
 namespace TemplateApi.Infrastructure.Migrations
 {
     [DbContext(typeof(TemplateApiDbContext))]
-    [Migration("20260421042721_CreateTableUser")]
+    [Migration("20260421050916_CreateTableUser")]
     partial class CreateTableUser
     {
         /// <inheritdoc />
@@ -37,9 +37,7 @@ namespace TemplateApi.Infrastructure.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .IsRequired()

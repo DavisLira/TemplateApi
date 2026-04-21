@@ -17,7 +17,7 @@ public class DoLoginUseCase(
     public async Task<ResponseRegisterUserJson> Execute(RequestLoginJson request)
     {
         var user = await _repository.GetByEmail(request.Email);
-        var fakeHash = "$2a$11$fa3Hfzee5Eg5Glio.4zVK.xp3A0ypfxBldLB9CFh7lHXnYq/X/ptG";
+        var fakeHash = "$2a$11$nLHMM.i0A1Y/b8NETnHCeOf/fVFDGd6xiGFzYkjaK5.j0JK.m/oMm";
         var passwordHash = user?.Password ?? fakeHash;
         var passwordMatch = _passwordEncrypter.IsValid(request.Password, passwordHash);
 
