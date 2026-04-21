@@ -1,9 +1,11 @@
 using Microsoft.OpenApi;
+using TemplateApi.Api;
 using TemplateApi.Api.Converters;
 using TemplateApi.Api.Filters;
 using TemplateApi.Api.Middleware;
 using TemplateApi.Application;
 using TemplateApi.Application.Services.Mappings;
+using TemplateApi.Domain.Security.Tokens;
 using TemplateApi.Infrastructure;
 using TemplateApi.Infrastructure.Extensions;
 using TemplateApi.Infrastructure.Migrations;
@@ -52,10 +54,13 @@ builder.Services.AddOpenApi(options =>
 
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 
-builder.Services.AddRouting(option => option.LowercaseUrls = true);
-
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+builder.Services.AddRouting(option => option.LowercaseUrls = true);
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

@@ -5,12 +5,14 @@ using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
 using TemplateApi.Domain.Security.Cryptography;
 using TemplateApi.Domain.Security.Tokens;
+using TemplateApi.Domain.Services.LoggedUser;
 using TemplateApi.Infrastructure.DataAccess;
 using TemplateApi.Infrastructure.DataAccess.Repositories;
 using TemplateApi.Infrastructure.Extensions;
 using TemplateApi.Infrastructure.Security.Cryptography;
 using TemplateApi.Infrastructure.Security.Tokens.Access.Generator;
 using TemplateApi.Infrastructure.Security.Tokens.Access.Validator;
+using TemplateApi.Infrastructure.Services;
 
 namespace TemplateApi.Infrastructure;
 
@@ -19,6 +21,7 @@ public static class DependencyInjectionExtension
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddPasswordEncrypter(services);
+        AddLoggedUser(services);
         AddRepositories(services);
         AddTokens(services, configuration);
 
@@ -56,5 +59,10 @@ public static class DependencyInjectionExtension
         
         services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationMinutes, signingKey!));
         services.AddScoped<IAccessTokenValidator>(config => new JwtTokenValidator(signingKey!));
+    }
+
+    public static void AddLoggedUser(IServiceCollection services)
+    {
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
 }
