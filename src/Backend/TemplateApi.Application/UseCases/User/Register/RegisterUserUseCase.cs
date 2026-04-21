@@ -33,7 +33,7 @@ public class RegisterUserUseCase(
         user.Password = _passwordEncrypter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
 
-        var accessToken = _accessTokenGenerator.Generate(user);
+        var accessToken = _accessTokenGenerator.Generate(user.UserIdentifier);
 
         await _writeOnlyRepository.Add(user);
         await _unitOfWork.Commit();

@@ -4,5 +4,5 @@ namespace TemplateApi.Domain.Security.Tokens;
 
 public interface IAccessTokenGenerator
 {
-    public string Generate(User user);
+    public string Generate(Guid userIdentifier);
 }

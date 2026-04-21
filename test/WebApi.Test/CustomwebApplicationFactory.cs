@@ -8,6 +8,7 @@ using TemplateApi.Domain.Security.Cryptography;
 using UserEntity = TemplateApi.Domain.Entities.User;
 using CommonTestUtilities.Entities;
 using TemplateApi.Domain.Enums;
+using TemplateApi.Domain.Security.Tokens;
 
 namespace WebApi.Test;
 
@@ -30,40 +31,48 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
                 });
 
                 var scope = services.BuildServiceProvider().CreateScope();
-                var passwordEncrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncrypter>();
                 var dbContext = scope.ServiceProvider.GetRequiredService<TemplateApiDbContext>();
+                var passwordEncrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncrypter>();
+                var accessTokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
 
-                StartDatabase(dbContext);
+                StartDatabase(dbContext, accessTokenGenerator);
             });
     }
 
     private void StartDatabase(
-        TemplateApiDbContext dbContext)
+        TemplateApiDbContext dbContext,
+        IAccessTokenGenerator accessTokenGenerator)
     {
-        var userMember = AddUserMember(dbContext);
-        var userAdmin = AddUserAdmin(dbContext);
+        var userMember = AddUserMember(dbContext, accessTokenGenerator);
+        var userAdmin = AddUserAdmin(dbContext, accessTokenGenerator);
         dbContext.SaveChanges();
     }
 
     private UserEntity AddUserMember(
-        TemplateApiDbContext dbContext)
+        TemplateApiDbContext dbContext,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         (var user, var password) = UserBuilder.Build();
         user.UserId = 1;
         dbContext.Users.Add(user);
 
-        User_Member = new UserIdentityManager(user, password);
+        var token = accessTokenGenerator.Generate(user.UserIdentifier);
+
+        User_Member = new UserIdentityManager(user, password, token);
         return user;
     }
 
     private UserEntity AddUserAdmin(
-        TemplateApiDbContext dbContext)
+        TemplateApiDbContext dbContext,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         (var user, var password) = UserBuilder.Build(Roles.ADMIN);
         user.UserId = 2;
         dbContext.Users.Add(user);
 
-        User_Admin = new UserIdentityManager(user, password);
+        var token = accessTokenGenerator.Generate(user.UserIdentifier);
+
+        User_Admin = new UserIdentityManager(user, password, token);
         return user;
     }
 }

@@ -15,13 +15,11 @@ public class JwtTokenGenerator(
     private readonly uint _expirationMinutes = expirationMinutes;
     private readonly string _signingKey = signingKey;
 
-    public string Generate(User user)
+    public string Generate(Guid userIdentifier)
     {
         var claims = new List<Claim>()
         {
-            new(ClaimTypes.Name, user.Name),
-            new(ClaimTypes.Sid, user.UserIdentifier.ToString()),
-            new(ClaimTypes.Role, user.Role)
+            new(ClaimTypes.Sid, userIdentifier.ToString())
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor()
