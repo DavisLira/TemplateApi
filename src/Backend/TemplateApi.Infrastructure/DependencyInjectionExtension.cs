@@ -3,9 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
+using TemplateApi.Domain.Security.Cryptography;
 using TemplateApi.Infrastructure.DataAccess;
 using TemplateApi.Infrastructure.DataAccess.Repositories;
 using TemplateApi.Infrastructure.Extensions;
+using TemplateApi.Infrastructure.Security.Cryptography;
 
 namespace TemplateApi.Infrastructure;
 
@@ -13,6 +15,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        AddPasswordEncrypter(services);
         AddRepositories(services);
 
         if(!configuration.IsTestEnvironment())
@@ -35,5 +38,10 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+    }
+
+    private static void AddPasswordEncrypter(IServiceCollection services)
+    {
+        services.AddScoped<IPasswordEncrypter, BCryptNet>();
     }
 }

@@ -29,6 +29,9 @@
         <value>Unknown error.</value>
     </data>
     <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
-        <value>Email already registered.</value>
+        <value>E-mail already registered.</value>
+    </data>
+    <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+        <value>E-mail and/or password invalid.</value>
     </data>
 </root>

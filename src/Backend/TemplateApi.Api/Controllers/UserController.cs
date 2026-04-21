@@ -7,9 +7,7 @@ using TemplateApi.Communication.Responses;
 
 namespace TemplateApi.Api.Controllers;
 
-[Route("[controller]")]
-[ApiController]
-public class UserController : ControllerBase
+public class UserController : TemplateApiBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]

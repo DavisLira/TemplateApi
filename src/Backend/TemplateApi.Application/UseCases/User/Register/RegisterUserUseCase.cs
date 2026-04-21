@@ -1,10 +1,10 @@
 using FluentValidation.Results;
 using Mapster;
-using TemplateApi.Application.Services.Cryptography;
 using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
 using TemplateApi.Domain.Repositories;
 using TemplateApi.Domain.Repositories.User;
+using TemplateApi.Domain.Security.Cryptography;
 using TemplateApi.Exceptions;
 using TemplateApi.Exceptions.ExceptionsBase;
 
@@ -13,13 +13,13 @@ namespace TemplateApi.Application.UseCases.User.Register;
 public class RegisterUserUseCase(
     IUserWriteOnlyRepository writeOnlyRepository,
     IUserReadOnlyRepository readOnlyRepository,
-    PasswordEncrypter passwordEncrypter,
+    IPasswordEncrypter passwordEncrypter,
     IUnitOfWork unitOfWork
 ) : IRegisterUserUseCase
 {
     private readonly IUserWriteOnlyRepository _writeOnlyRepository = writeOnlyRepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository = readOnlyRepository;
-    private readonly PasswordEncrypter _passwordEncrypter = passwordEncrypter;
+    private readonly IPasswordEncrypter _passwordEncrypter = passwordEncrypter;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
     {

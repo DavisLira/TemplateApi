@@ -6,11 +6,7 @@ public class ErrorOnValidationException(
     IList<string> errorMessages
 ) : TemplateApiException(string.Empty)
 {
-    private readonly IList<string> _errors = errorMessages;
-    public override int StatusCode => (int)HttpStatusCode.BadRequest;
-
-    public override IList<string> GetErrors()
-    {
-        return _errors;
-    }
+    private readonly IList<string> _errorMessages = errorMessages;
+    public override IList<string> GetErrors() => _errorMessages;
+    public override HttpStatusCode GetStatusCode() => HttpStatusCode.BadRequest;
 }
