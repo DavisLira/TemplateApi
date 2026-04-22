@@ -10,6 +10,7 @@ namespace TemplateApi.Api.Controllers;
 public class UserController : TemplateApiBaseController
 {
     [HttpPost]
+    // [AuthenticatedAsAdmin]
     [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
