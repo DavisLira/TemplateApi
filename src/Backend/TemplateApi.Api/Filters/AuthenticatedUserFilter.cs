@@ -17,7 +17,7 @@ public class AuthenticatedUserFilter(
         private readonly IAccessTokenValidator _accessTokenValidator = accessTokenValidator;
     private readonly IUserReadOnlyRepository _repository = repository;
     
-    public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+    public virtual async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
         try
         {
@@ -47,7 +47,7 @@ public class AuthenticatedUserFilter(
         }
     }
 
-    private static string TokenOnRequest(AuthorizationFilterContext context)
+    protected static string TokenOnRequest(AuthorizationFilterContext context)
     {
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
         if (string.IsNullOrWhiteSpace(authentication))
