@@ -34,4 +34,14 @@ public class UserRepository(
                 user.Active
                 && user.Email.Equals(email));
     }
+
+    public async Task<User?> GetByIdentifier(Guid userIdentifier)
+    {
+        return await _dbContext
+            .Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(user =>
+                user.Active
+                && user.UserIdentifier.Equals(userIdentifier));
+    }
 }
