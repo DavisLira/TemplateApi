@@ -16,4 +16,5 @@ public class UserIdentityManager(
     public string GetEmail() => _user.Email;
     public string GetPassword() => _password;
     public string GetToken() => _token;
+    public Guid GetUserIdentifier() => _user.UserIdentifier;
 }
