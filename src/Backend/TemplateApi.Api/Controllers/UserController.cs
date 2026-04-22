@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TemplateApi.Api.Attributes;
+using TemplateApi.Application.UseCases.User.Profile;
 using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
@@ -16,5 +18,16 @@ public class UserController : TemplateApiBaseController
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [AuthenticatedUser]
+    [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserProfile(
+        [FromServices] IGetUserProfileUseCase useCase
+    )
+    {
+        var result = await useCase.Execute();
+        return Ok(result);
     }
 }
