@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TemplateApi.Api.Attributes;
 using TemplateApi.Application.UseCases.User.Profile;
 using TemplateApi.Application.UseCases.User.Register;
+using TemplateApi.Application.UseCases.User.Update;
 using TemplateApi.Communication.Requests;
 using TemplateApi.Communication.Responses;
 
@@ -30,5 +31,18 @@ public class UserController : TemplateApiBaseController
     {
         var result = await useCase.Execute();
         return Ok(result);
+    }
+
+    [HttpPut]
+    [AuthenticatedUser]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateUser(
+        [FromServices] IUpdateUserUseCase useCase,
+        [FromBody] RequestUpdateUserJson request
+    )
+    {
+        await useCase.Execute(request);
+        return NoContent();
     }
 }

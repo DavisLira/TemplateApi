@@ -6,7 +6,7 @@ namespace TemplateApi.Infrastructure.DataAccess.Repositories;
 
 public class UserRepository(
     TemplateApiDbContext dbContext
-) : IUserReadOnlyRepository, IUserWriteOnlyRepository
+) : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly TemplateApiDbContext _dbContext = dbContext;
 
@@ -35,6 +35,13 @@ public class UserRepository(
                 && user.Email.Equals(email));
     }
 
+    public async Task<User> GetById(long id)
+    {
+        return await _dbContext
+            .Users
+            .FirstAsync(user => user.UserId == id);
+    }
+
     public async Task<User?> GetByIdentifier(Guid userIdentifier)
     {
         return await _dbContext
@@ -44,4 +51,6 @@ public class UserRepository(
                 user.Active
                 && user.UserIdentifier.Equals(userIdentifier));
     }
+
+    public void Update(User user) => _dbContext.Users.Update(user);
 }
