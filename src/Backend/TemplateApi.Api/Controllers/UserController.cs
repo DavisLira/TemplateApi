@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TemplateApi.Api.Attributes;
+using TemplateApi.Application.UseCases.User.ChangePassword;
 using TemplateApi.Application.UseCases.User.Profile;
 using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Application.UseCases.User.Update;
@@ -40,6 +41,19 @@ public class UserController : TemplateApiBaseController
     public async Task<IActionResult> UpdateUser(
         [FromServices] IUpdateUserUseCase useCase,
         [FromBody] RequestUpdateUserJson request
+    )
+    {
+        await useCase.Execute(request);
+        return NoContent();
+    }
+
+    [HttpPut("change-password")]
+    [AuthenticatedUser]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ChangePassword(
+        [FromServices] IChangePasswordUseCase useCase,
+        [FromBody] RequestChangePasswordJson request
     )
     {
         await useCase.Execute(request);
