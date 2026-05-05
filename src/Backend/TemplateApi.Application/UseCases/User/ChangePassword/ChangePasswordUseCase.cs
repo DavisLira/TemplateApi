@@ -10,7 +10,7 @@ namespace TemplateApi.Application.UseCases.User.ChangePassword;
 
 public class ChangePasswordUseCase(
     ILoggedUser loggedUser,
-    IPasswordEncrypter passwordEncripter,
+    IPasswordEncrypter passwordEncrypter,
     IUserUpdateOnlyRepository repository,
     IUnitOfWork unitOfWork
 ) : IChangePasswordUseCase
@@ -18,7 +18,7 @@ public class ChangePasswordUseCase(
     private readonly ILoggedUser _loggedUser = loggedUser;
     private readonly IUserUpdateOnlyRepository _repository = repository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IPasswordEncrypter _passwordEncripter = passwordEncripter;
+    private readonly IPasswordEncrypter _passwordEncrypter = passwordEncrypter;
 
     public async Task Execute(RequestChangePasswordJson request)
     {
@@ -28,7 +28,7 @@ public class ChangePasswordUseCase(
 
         var user = await _repository.GetById(loggedUser.UserId);
 
-        user.Password = _passwordEncripter.Encrypt(request.NewPassword);
+        user.Password = _passwordEncrypter.Encrypt(request.NewPassword);
 
         _repository.Update(user);
 
@@ -39,7 +39,7 @@ public class ChangePasswordUseCase(
     {
         var result = new ChangePasswordValidator().Validate(request);
 
-        if (!_passwordEncripter.IsValid(request.Password, loggedUser.Password))
+        if (!_passwordEncrypter.IsValid(request.Password, loggedUser.Password))
             result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
 
         if (!result.IsValid)

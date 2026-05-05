@@ -59,13 +59,13 @@ public class RegisterUserUseCaseTest
     {
         var unitOfWork = UnitOfWorkBuilder.Build();
         var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
-        var passwordEncripter = PasswordEncrypterBuilder.Build();
+        var passwordEncrypter = PasswordEncrypterBuilder.Build();
         var readRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
         var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
         if (!string.IsNullOrWhiteSpace(email))
             readRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), passwordEncripter, accessTokenGenerator, unitOfWork);
+        return new RegisterUserUseCase(writeRepository, readRepositoryBuilder.Build(), passwordEncrypter, accessTokenGenerator, unitOfWork);
     }
 }
