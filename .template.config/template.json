@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Davi Lira",
+  "classifications": ["Web", "WebAPI"],
+  "name": "Meu Template API Base",
+  "identity": "TemplateApi.Base",
+  "shortName": "new-api",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "TemplateApi",
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "exclude": [
+        "**/bin/**",
+        "**/obj/**",
+        "**/.git/**",
+        "**/.vscode/**",
+        "**/.vs/**"
+      ]
+    }
+  ]
+}
