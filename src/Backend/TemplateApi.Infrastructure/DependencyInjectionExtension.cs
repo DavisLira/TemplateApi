@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TemplateApi.Domain.Repositories;
+using TemplateApi.Domain.Repositories.Token;
 using TemplateApi.Domain.Repositories.User;
 using TemplateApi.Domain.Security.Cryptography;
 using TemplateApi.Domain.Security.Tokens;
@@ -12,6 +13,7 @@ using TemplateApi.Infrastructure.Extensions;
 using TemplateApi.Infrastructure.Security.Cryptography;
 using TemplateApi.Infrastructure.Security.Tokens.Access.Generator;
 using TemplateApi.Infrastructure.Security.Tokens.Access.Validator;
+using TemplateApi.Infrastructure.Security.Tokens.Refresh;
 using TemplateApi.Infrastructure.Services;
 
 namespace TemplateApi.Infrastructure;
@@ -46,6 +48,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
     }
 
     private static void AddPasswordEncrypter(IServiceCollection services)
@@ -60,6 +63,7 @@ public static class DependencyInjectionExtension
         
         services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationMinutes, signingKey!));
         services.AddScoped<IAccessTokenValidator>(config => new JwtTokenValidator(signingKey!));
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
     }
 
     public static void AddLoggedUser(IServiceCollection services)

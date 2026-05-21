@@ -4,6 +4,7 @@ using TemplateApi.Application.UseCases.User.ChangePassword;
 using TemplateApi.Application.UseCases.User.Profile;
 using TemplateApi.Application.UseCases.User.Register;
 using TemplateApi.Application.UseCases.User.Update;
+using TemplateApi.Application.UseCases.Token.RefreshToken;
 
 namespace TemplateApi.Application;
 
@@ -21,5 +22,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+        services.AddScoped<IUserRefreshTokenUseCase, UserRefreshTokenUseCase>();
     }
 }
