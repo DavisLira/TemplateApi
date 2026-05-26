@@ -23,31 +23,21 @@ builder.Services.AddOpenApi(options =>
             {
                 "Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the Bearer scheme.
-                        Enter 'Bearer' [space] and then your token in the text input below.
-                        Example: 'Bearer 12345abcdef'",
-                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http, 
+                    Scheme = "bearer",             
+                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Description = "Cole apenas o token JWT aqui (não precisa escrever 'Bearer' antes)."
                 }
             }
         };
-        return Task.CompletedTask;
-    });
 
-    options.AddOperationTransformer((operation, context, cancellationToken) =>
-    {
-        operation.Security =
-        [
-            new()
-            {
-                {
-                    new OpenApiSecuritySchemeReference("Bearer"),
-                    new List<string>()
-                }
-            }
-        ];
+        document.Security ??= [];
+        document.Security.Add(new OpenApiSecurityRequirement
+        {
+            [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+        });
+
         return Task.CompletedTask;
     });
 });
@@ -79,6 +69,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
